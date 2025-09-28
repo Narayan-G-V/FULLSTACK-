@@ -1,0 +1,231 @@
+
+/* =========================================================
+ Conference Day Microsite — Shared Styles (HTML‑only project)
+ Features: CSS variables, sticky header, smooth scrolling,
+ attribute selectors for state, light/dark theming.
+ ========================================================= */
+/* 1) Theme variables and global behavior */
+:root{
+ /* Palette */
+ --bg: #f7f9fc;
+ --panel: #ffffff;
+ --ink: #1f2937;
+ --muted: #475569;
+ --brand: #0a4ca6;
+ --brand-ink: #083a7e;
+ --accent: #eef6ff;
+ /* Sizing and effects */
+ --maxw: 1100px;
+ --radius: 14px;
+ --shadow: 0 14px 30px rgba(0,0,0,.08);
+ /* Spacing scale */
+ --space-1: .5rem;
+ --space-2: 1rem;
+ --space-3: 1.5rem;
+ --space-4: 2rem;
+ --space-5: 3rem;
+}
+/* Respect OS color preference; CSS uses these custom properties via var() */
+html{ scroll-behavior: smooth; } /* in‑page anchors feel polished */ 
+/* (Note: UA may ignore scroll-behavior; it applies at the root for viewport) */
+*{ box-sizing: border-box; }
+body{
+ margin: 0;
+ font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+ color: var(--ink);
+ background: var(--bg);
+ line-height: 1.65;
+}
+/* 2) Layout containers */
+main{
+ max-width: var(--maxw);
+ margin: 0 auto;
+ padding: var(--space-4) var(--space-2);
+}
+/* 3) Sticky header and primary navigation */
+header{
+ position: sticky; top: 0; z-index: 10; /* sticks after threshold */
+ background: linear-gradient(90deg, var(--accent), #fff);
+ border-bottom: 1px solid rgba(0,0,0,.06);
+ box-shadow: 0 6px 20px rgba(0,0,0,.06);
+ padding: var(--space-2) var(--space-2);
+}
+h1{
+ margin: 0 0 var(--space-1);
+ color: var(--brand);
+ font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem);
+ letter-spacing: .2px;
+}
+/* Header nav (top bar) */
+header nav{
+ display: flex;
+ gap: 1rem;
+ flex-wrap: wrap;
+}
+header nav a{
+ color: var(--brand);
+ text-decoration: none;
+ font-weight: 600;
+ padding: .25rem .5rem;
+ border-radius: 8px;
+ transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+header nav a:hover,
+header nav a:focus{
+ color: var(--brand-ink);
+ background: rgba(10,76,166,.07);
+ outline: none;
+}
+header nav a:focus-visible{
+ outline: 2px solid var(--brand);
+ outline-offset: 2px;
+}
+/* Current page highlight if instructor adds aria-current="page" on the active link */
+header nav a[aria-current="page"]{
+ background: var(--brand);
+ color: #fff;
+ box-shadow: 0 6px 18px rgba(10,76,166,.25);
+}
+/* 4) Section “cards” for clear content grouping */
+section{
+ background: var(--panel);
+ padding: var(--space-4);
+ margin-block: var(--space-4);
+ border-radius: var(--radius);
+ box-shadow: var(--shadow);
+}
+/* Headings and text */
+h2{
+ margin: 0 0 var(--space-2);
+ color: #111827;
+ font-size: clamp(1.3rem, 1rem + .8vw, 1.8rem);
+}
+h3{
+ margin: var(--space-3) 0 var(--space-1);
+ color: #334155;
+}
+p{
+ margin: 0 0 var(--space-2);
+ color: var(--muted);
+}
+/* Lists */
+ul, ol{
+ padding-left: 1.25rem;
+ margin: 0 0 var(--space-2);
+}
+li{ margin: .35rem 0; }
+/* Links (global) */
+a{
+ color: var(--brand);
+ text-decoration: none;
+ transition: color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+a:hover{ color: var(--brand-ink); }
+/* External link hint if target is _blank (optional; harmless if unused) */
+a[target="_blank"]{
+ text-decoration: underline;
+ text-underline-offset: 2px;
+}
+/* 5) Images and optional figure/figcaption */
+img{
+ display: block;
+ max-width: 100%;
+ height: auto;
+ border-radius: 12px;
+ box-shadow: 0 12px 26px rgba(2,32,71,.12);
+ margin-top: var(--space-2);
+}
+figure{
+ margin: 0;
+}
+figcaption{
+ color: var(--muted);
+ font-size: .95rem;
+ margin-top: .5rem;
+}
+/* 6) In‑page TOC inside main (e.g., on Schedule page) */
+main nav{
+ display: inline-flex;
+ gap: .75rem;
+ flex-wrap: wrap;
+ margin-bottom: var(--space-2);
+}
+main nav a{
+ background: rgba(10,76,166,.07);
+ color: var(--brand-ink);
+ padding: .25rem .6rem;
+ border-radius: 999px;
+ font-weight: 600;
+}
+main nav a:hover{ background: rgba(10,76,166,.12); }
+/* 7) Schedule: time + title + description patterns (non‑table layout) */
+.schedule-group{ margin-bottom: var(--space-3); }
+.schedule-time{ font-weight: 700; color: #0f172a; }
+.schedule-item{ margin: .4rem 0; }
+/* 8) Speakers page: simple responsive image rows (no grid class required) */
+section img{
+ /* when multiple images are in a section, they’ll wrap nicely */
+ max-width: 280px;
+}
+.media-row{
+ display: flex;
+ gap: var(--space-2);
+ flex-wrap: wrap;
+ align-items: flex-start;
+}
+/* 9) FAQ (dl / dt / dd) semantics */
+dl{
+ margin: 0;
+}
+dt{
+ font-weight: 700;
+ color: #0f172a;
+ margin-top: var(--space-2);
+}
+dd{
+ margin: .25rem 0 var(--space-2) 0;
+ color: var(--muted);
+ border-left: 3px solid var(--accent);
+ padding-left: .75rem;
+}
+/* 10) Footer */
+footer{
+ max-width: var(--maxw);
+ margin: var(--space-5) auto var(--space-4);
+ color: var(--muted);
+ padding: 0 var(--space-2);
+ font-size: .95rem;
+}
+footer a{ text-decoration: underline; }
+/* Optional contact block */
+footer address{
+ font-style: normal;
+ color: var(--muted);
+}
+/* 11) Small helpers */
+.hr{
+ height: 1px;
+ background: rgba(0,0,0,.08);
+ margin: var(--space-3) 0;
+}
+/* 12) Automatic dark mode (respects OS setting) */
+@media (prefers-color-scheme: dark){
+ :root{
+ --bg: #0b1220;
+ --panel: #121a2b;
+ --ink: #e5e7eb;
+ --muted: #cbd5e1;
+ --brand: #6ea8ff;
+ --brand-ink: #a7c8ff;
+ --accent: #0f172a;
+ --shadow: 0 16px 34px rgba(0,0,0,.5);
+ }
+ header{
+ background: linear-gradient(90deg, #0f172a, #0b1220);
+ border-bottom-color: rgba(255,255,255,.06);
+ box-shadow: 0 6px 22px rgba(0,0,0,.5);
+ }
+ h2{ color: #e5e7eb; }
+ h3{ color: #d1d5db; }
+ a[target="_blank"]{ color: var(--brand); }
+}
